@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var mFollower: TextView? = null
     private var mPoint: TextView? = null
     private var mSpotify: TextView? = null
-    private var mFrameLayout: FrameLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +107,6 @@ class MainActivity : AppCompatActivity() {
         mFollower = findViewById<TextView>(R.id.following)
         mPoint = findViewById<TextView>(R.id.dot)
         mSpotify = findViewById<TextView>(R.id.spotify)
-        mFrameLayout = findViewById<FrameLayout>(R.id.frame_layout)
     }
 
 }
