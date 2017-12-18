@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Spotify</string>
+    <string name="string_settings">settings</string>
+    <string name="shuffle_play">shuffle_play</string>
+    <string name="Music">music</string>
+    <string name="MusicArtist">artist</string>
+    <string name="Artist">artist</string>
+    <string name="made">MADE BY BERNARD</string>
+    <string name="include">INCLUDE</string>
+    <string name="download">DOWNLOAD</string>
+    <string name="filter">FILTER</string>
+    <string name="page">Top Hits Philippines</string>
+    <string name="follow">FOLLOW</string>
+</resources>

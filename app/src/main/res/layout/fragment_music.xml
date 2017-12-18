@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/toolbarColor"
+    android:padding="5dp">
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/toolbarColor"
+        android:src="@drawable/ic_arrow_up"
+        android:tint="@color/greyText" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6">
+
+        <TextView
+            android:id="@+id/musicTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/dot"
+            android:paddingBottom="14dp"
+            android:paddingTop="12dp"
+            android:text="@string/Music"
+            android:textAlignment="center"
+            android:textColor="@color/greyText"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="  •  "
+            android:textAlignment="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="14dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/greyText"/>
+
+        <TextView
+            android:id="@+id/musicArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="14dp"
+            android:paddingTop="12dp"
+            android:text="@string/Artist"
+            android:textAlignment="center"
+            android:textColor="@color/greyText"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/toolbarColor"
+        android:src="@drawable/ic_pause"
+        android:tint="@color/greyText"/>
+
+</LinearLayout>
