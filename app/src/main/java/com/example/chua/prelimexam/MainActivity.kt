@@ -1,21 +1,73 @@
 package com.example.chua.prelimexam
 
-import android.annotation.SuppressLint
-import android.graphics.Color
+import android.Manifest
+import android.app.ActionBar
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v4.widget.NestedScrollView
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.View
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
+
+    var musicModelData: ArrayList<MusicModel> = ArrayList()
+    var songListAdapter: CustomAdapter? = null
+
+    companion object {
+        val PERMISSION_REQUEST_CODE = 1
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //Permission request
+        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@MainActivity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    PERMISSION_REQUEST_CODE)
+        } else {
+            loadData()
+        }
+
+    }
+
+    //getting the data
+    fun loadData() {
+        val musicCursor: Cursor? = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
+        while (musicCursor != null && musicCursor.moveToNext()) {
+            var Name = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            var Singer = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+            var Path = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+
+            musicModelData.add(MusicModel(Name, Singer, Path))
+        }
+        songListAdapter = CustomAdapter(musicModelData, applicationContext, this)
+        var layoutManager = LinearLayoutManager(applicationContext)
+        recycler_view?.layoutManager = layoutManager
+        recycler_view?.adapter = songListAdapter
+    }
+
+    //Checking permission request
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
+                loadData()
+            }
+        }
+    }
+}
+    /*
 
     private var mRecyclerView: RecyclerView? = null
     private var mNestedScrollView: NestedScrollView? = null
@@ -109,4 +161,4 @@ class MainActivity : AppCompatActivity() {
         mSpotify = findViewById<TextView>(R.id.spotify)
     }
 
-}
+}*/

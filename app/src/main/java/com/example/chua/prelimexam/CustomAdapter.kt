@@ -1,43 +1,73 @@
 package com.example.chua.prelimexam
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
+import java.util.ArrayList
 
 /**
  * Created by Chua on 12/17/2017.
  */
-class CustomAdapter(val musicList: ArrayList<Music>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val music: Music = musicList[position]
+class CustomAdapter(SongModel: ArrayList<MusicModel>, context: Context, mainActivity: MainActivity): RecyclerView.Adapter<CustomAdapter.SongListViewHolder>() {
 
-        holder?.mTitle?.text = music.musicTitle
-        holder?.mArtist?.text = music.musicSinger
+    var mContext = context
+    var mSongModel = SongModel
+    var allMusicList: ArrayList<String> = ArrayList()
 
-        holder?.rLayout?.setOnClickListener(object: View.OnClickListener{
-            override fun onClick(v: View) {
+    companion object {
+        val MUSICLIST = "musiclist"
+        val MUSICITEMPOS = "pos"
+    }
 
+    override fun onBindViewHolder(holder: SongListViewHolder?, position: Int) {
+        var song = mSongModel[position]
+        var songTitle = song.title
+        var songSinger = song.singer
+
+        holder!!.songTitle.text = songTitle
+        holder!!.songSinger.text = songSinger
+        holder.setOnCustomItemClickListener(object: CustomItemClickListener{
+            override fun onCustomItemClick(view: View, pos: Int) {
+                for (i in 0 until mSongModel.size){
+                    allMusicList.add(mSongModel[i].path)
+
+                }
+                var musicDataIntent = Intent(mContext, PlayMusicService::class.java)
+                musicDataIntent.putStringArrayListExtra(MUSICLIST,allMusicList)
+                musicDataIntent.putExtra(MUSICITEMPOS,pos)
+                mContext.startService(musicDataIntent)
             }
         })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.list_layout, parent, false)
-        return ViewHolder(v)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SongListViewHolder {
+        val inflater = LayoutInflater.from(parent?.context).inflate(R.layout.list_layout, parent, false)
+        return SongListViewHolder(inflater)
     }
 
     override fun getItemCount(): Int {
-        return musicList.size
+        return mSongModel.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val rLayout = itemView.findViewById<RelativeLayout>(R.id.item) as RelativeLayout
-        val mTitle = itemView.findViewById<TextView>(R.id.title) as TextView
-        val mArtist = itemView.findViewById<TextView>(R.id.artist) as TextView
-        val mSetting = itemView.findViewById<ImageView>(R.id.item_setting) as ImageView
+    class SongListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),View.OnClickListener{
+        var songTitle: TextView
+        var songSinger: TextView
+        var mCustomItemClickListener: CustomItemClickListener? = null
+        init {
+            songTitle = itemView.findViewById(R.id.title)
+            songSinger = itemView.findViewById(R.id.artist)
+            itemView.setOnClickListener(this)
+        }
+        fun setOnCustomItemClickListener(customItemClickListener: CustomItemClickListener){
+            this.mCustomItemClickListener = customItemClickListener
+        }
+
+        override fun onClick(view: View?) {
+            this.mCustomItemClickListener!!.onCustomItemClick(view!!,adapterPosition)
+        }
     }
 }

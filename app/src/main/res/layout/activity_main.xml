@@ -27,29 +27,6 @@
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <EditText
-                android:id="@+id/filter"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="70dp"
-                android:backgroundTint="@color/white"
-                android:hint="@string/filter"
-                android:textColor="@color/white"
-                android:textColorHint="#6d6d6d"
-                app:layout_collapseMode="parallax" />
-
-            <ImageView
-                android:id="@+id/item_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="40sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="310dp"
-                android:layout_marginTop="70dp"
-                android:src="@drawable/ic_menu"
-                android:tint="@color/white"
-                app:layout_collapseMode="parallax" />
-
             <ImageView
                 android:id="@+id/profile_photo"
                 android:layout_width="185dp"
@@ -110,6 +87,29 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/CustomCollapse"
                 app:titleTextAppearance="@style/CustomTitle" />
+
+            <EditText
+                android:id="@+id/filter"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="70dp"
+                android:backgroundTint="@color/white"
+                android:hint="@string/filter"
+                android:textColor="@color/white"
+                android:textColorHint="#6d6d6d"
+                app:layout_collapseMode="parallax" />
+
+            <ImageView
+                android:id="@+id/item_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="350dp"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/ic_menu"
+                android:tint="@color/white"
+                app:layout_collapseMode="parallax" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -181,4 +181,72 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/toolbarColor"
+            android:layout_width="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/toolbarColor"
+                android:src="@drawable/ic_home"
+                android:tint="@color/greyText" />
+
+            <ImageButton
+                android:id="@+id/browse"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/toolbarColor"
+                android:src="@drawable/ic_browse"
+                android:tint="@color/greyText" />
+
+            <ImageButton
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/toolbarColor"
+                android:src="@drawable/ic_search"
+                android:tint="@color/greyText" />
+
+            <ImageButton
+                android:id="@+id/radio"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/toolbarColor"
+                android:src="@drawable/ic_radio"
+                android:tint="@color/greyText" />
+
+            <ImageButton
+                android:id="@+id/library"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/toolbarColor"
+                android:src="@drawable/ic_library"
+                android:tint="@color/greyText" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.design.widget.CoordinatorLayout>

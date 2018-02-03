@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PrelimExam.iml" filepath="$PROJECT_DIR$/PrelimExam.iml" />
+      <module fileurl="file://C:\Users\Chua\Desktop\Spotify\PrelimExam.iml" filepath="C:\Users\Chua\Desktop\Spotify\PrelimExam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spotify.iml" filepath="$PROJECT_DIR$/Spotify.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Chua\Desktop\Spotify\app\app.iml" filepath="C:\Users\Chua\Desktop\Spotify\app\app.iml" />
     </modules>
   </component>
 </project>
