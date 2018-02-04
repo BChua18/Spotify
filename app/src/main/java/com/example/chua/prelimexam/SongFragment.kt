@@ -12,7 +12,7 @@ import android.widget.TextView
 /**
  * Created by Chua on 12/18/2017.
  */
-class FragmentMusic : Fragment() {
+class SongFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

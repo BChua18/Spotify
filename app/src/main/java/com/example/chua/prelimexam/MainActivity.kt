@@ -10,27 +10,29 @@ import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.*
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    var musicModelData: ArrayList<MusicModel> = ArrayList()
+    val manager = supportFragmentManager
+    var songModelData: ArrayList<SongModel> = ArrayList()
     var songListAdapter: CustomAdapter? = null
 
     companion object {
         val PERMISSION_REQUEST_CODE = 1
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setDisplayShowCustomEnabled(true)
+        getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        getSupportActionBar()?.setDisplayShowCustomEnabled(true)
 
-        //Permission request
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this@MainActivity,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -41,23 +43,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //getting the data
     fun loadData() {
-        val musicCursor: Cursor? = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
-        while (musicCursor != null && musicCursor.moveToNext()) {
-            var Name = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-            var Singer = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-            var Path = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.DATA))
-
-            musicModelData.add(MusicModel(Name, Singer, Path))
+        val songCursor: Cursor? = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
+        while (songCursor != null && songCursor.moveToNext()) {
+            var songName = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            var songSinger = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+            var songPath = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+            songModelData.add(SongModel(songName, songSinger, songPath))
         }
-        songListAdapter = CustomAdapter(musicModelData, applicationContext, this)
+        songListAdapter = CustomAdapter(songModelData, applicationContext, this)
         var layoutManager = LinearLayoutManager(applicationContext)
-        recycler_view?.layoutManager = layoutManager
-        recycler_view?.adapter = songListAdapter
+        recycler_view.layoutManager = layoutManager
+        recycler_view.adapter = songListAdapter
     }
 
-    //Checking permission request
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.chua.prelimexam.R.layout.fragment_music
 import java.util.ArrayList
 
 /**
  * Created by Chua on 12/17/2017.
  */
-class CustomAdapter(SongModel: ArrayList<MusicModel>, context: Context, mainActivity: MainActivity): RecyclerView.Adapter<CustomAdapter.SongListViewHolder>() {
+class CustomAdapter(songModel: ArrayList<SongModel>, context: Context, mainActivity: MainActivity): RecyclerView.Adapter<CustomAdapter.SongListViewHolder>() {
 
     var mContext = context
-    var mSongModel = SongModel
+    var mSongModel = songModel
     var allMusicList: ArrayList<String> = ArrayList()
 
     companion object {
@@ -34,8 +35,8 @@ class CustomAdapter(SongModel: ArrayList<MusicModel>, context: Context, mainActi
             override fun onCustomItemClick(view: View, pos: Int) {
                 for (i in 0 until mSongModel.size){
                     allMusicList.add(mSongModel[i].path)
-
                 }
+
                 var musicDataIntent = Intent(mContext, PlayMusicService::class.java)
                 musicDataIntent.putStringArrayListExtra(MUSICLIST,allMusicList)
                 musicDataIntent.putExtra(MUSICITEMPOS,pos)
@@ -68,6 +69,7 @@ class CustomAdapter(SongModel: ArrayList<MusicModel>, context: Context, mainActi
 
         override fun onClick(view: View?) {
             this.mCustomItemClickListener!!.onCustomItemClick(view!!,adapterPosition)
+            fragment_music
         }
     }
 }
